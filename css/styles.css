@@ -1,0 +1,570 @@
+/* Arquivo: css/styles.css */
+/* 1. Reset básico (tira as margens padrão do navegador) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Configuração do Fundo do Site (Clima de Cinema) */
+body {
+    background-color: #111111;
+    /* Fundo escuro */
+    color: #ffffff;
+    /* Texto branco */
+    /* Prepara o espaço para o menu que vai ficar fixo no topo */
+    padding-top: 70px;
+}
+
+/* 3. Estilizando e Fixando o Menu no Topo */
+.cinema-header {
+    height: 70px;
+    background: linear-gradient(90deg, #090202, #1f0300);
+    /* Vermelho muito escuro */
+    /* Coloca os itens lado a lado */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 50px;
+    gap: 250px;
+    /* Separa a logo dos links */
+    /* Prega o menu no teto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 900   /*Fixa o cabeçalho mesmo qdo rola a pag */
+}
+
+/* Deixa a logo no tamanho certo */
+.logo {
+    max-height: 30px;
+}
+
+/* Coloca os links do menu lado a lado sem as bolinhas */
+.main-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+/* 4. Estilizando os Links do Menu */
+.main-menu a {
+    text-decoration: none;
+    /* Tira o sublinhado feio */
+    color: #cbb108;
+    /* Letra branca */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    /* Cria o formato do botão (altura x largura) */
+    border-radius: 8px;
+    /* Arredonda os cantos */
+    transition: all 0.3s ease;
+    /* Faz a animação de brilho ser suave */
+}
+
+/* 5. O Efeito Mágico ao Passar o Mouse (Hover) */
+.main-menu a:hover {
+    background-color:  transparent;
+    /* Fundo amarelo/dourado */
+    color: #704002;
+    /* Letra escura para dar contraste */
+    box-shadow: transparent;
+    /* Aquele efeito de brilho/neon */
+    transform: scale(1.05);
+    /* Faz o botão dar uma leve crescida */
+     border: 2px solid rgb(182, 104, 10);
+}
+
+/* 6. A Linha Colorida (Pseudo-elemento) */
+.cinema-header::after {
+    content: '';
+    /* Obrigatório: diz ao CSS que esse elemento existe, mesmo vazio */
+    position: absolute;
+    bottom: 0;
+    /* Cola a linha exatamente no final do cabeçalho */
+    left: 0;
+    width: 100%;
+    /* Ocupa a tela toda de ponta a ponta */
+    height: 4px;
+    /* A espessura da nossa linha */
+    /* O gradiente que cria o efeito arco-íris */
+    background: linear-gradient(to right,
+            #ff0000,
+            /* Vermelho */
+            #ff7f00,
+            /* Laranja */
+            #ffff00,
+            /* Amarelo */
+            #00ff00,
+            /* Verde */
+            #00ced1,
+            /* Ciano */
+            #0000ff,
+            /* Azul */
+            #800080,
+            /* Roxo */
+            #ff0000
+            /* Volta pro Vermelho */
+        );
+}
+
+/* 7. O Container Principal do Filme */
+.carousel-container {
+    width: 100%;
+    height: 14cm;
+    /* Altura do nosso banner */
+    position: relative;
+    /* Segura os elementos absolutos lá dentro */
+    overflow: hidden;
+    /* Esconde o que vazar das bordas */
+    background-color: #06c442;
+    /* Cinza super escuro padrão Netflix */
+    margin-top: 10px;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 8. O Fundo Borrado (Atmosfera) */
+.slide-background {
+    position: absolute;
+    inset: -5%;
+    /* Estica um pouquinho pra fora da tela pra o borrado não falhar nas bordas 
+*/
+    background-image: var(--bg-url);
+    /* Puxa a imagem que definimos lá no HTML */
+    background-size: cover;
+    background-position: center;
+
+    /* A MÁGICA AQUI: Borrado e escurecido (25% de brilho) */
+    filter: blur(3px) brightness(0.25);
+    z-index: 1;  /* Fica na camada do fundo */
+}
+/* 9. A Caixa de Textos à Esquerda */
+.slide-info-left {
+position: absolute;
+left: 8%; /* Descola da borda da tela */
+top: 50%;
+z-index: 4; /* Fica acima do fundo */
+width: 35%; /* Não deixa o texto cruzar a tela toda */
+display: flex;
+flex-direction: column; /* Empilha: Título -> Tags-> Horários -> Botões */
+gap: 15px; /* Espaço entre as coisas */
+transform: translateX(-10);
+}
+
+/* Título Impactante */
+.movie-title {
+font-size: 2.8;
+font-weight: 800;
+text-transform: uppercase;
+text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+transform: translateX(20px); 
+}
+/* 10. Tags (Censura e Sala) e Horários */
+.movie-tags, .movie-times {
+display: flex;
+gap: 10px;
+}
+.tag {
+border: 1px solid rgba(255, 255, 255, 0.5);
+padding: 3px 8px;
+border-radius: 4px;
+background-color: rgba(0, 0, 0, 0.4);
+font-weight: bold;
+}
+/* Cor específica para censura 16 anos */
+.age-16 { background-color: #d12121; border-color: #d12121; color: #fff; }
+.time {
+border: 1px solid #ffffff;
+padding: 8px 18px;
+border-radius: 20px; /* Formato de pílula redonda */
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.time:hover {
+background-color: #ffffff;
+color: #000000; /* Letra preta no fundo branco ao passar o mouse */
+}
+/* 11. Botões de Ação */
+.movie-actions {
+display: flex;
+gap: 15px;
+margin-top: 5px;
+ transform: translateY(7    00px);  
+}
+/* Botão Principal: Trailer */
+.btn-trailer {
+background-color: #9a020c; /* Vermelho Netflix */
+color: #ffffff;
+text-decoration: none;
+padding: 10px 24px;
+border-radius: 5px;
+font-weight: bold;
+box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4); /* Sombrinha vermelha */
+transition: all 0.3s ease;
+width: 300px;
+height: 50px;
+}
+.btn-trailer-outline {
+background-color:  white;
+transition: background-color 0.3s ease;
+transition: transform 0.2s ease;
+border-radius: 5px;
+width: 200px;
+height: 50px;
+font-family: Montserrat, sans-serif;
+border: 3px solid rgb(108, 59, 6);
+}
+.btn-trailer-outline:hover {
+    background-color: #a90202;
+    transform: scale(1.05);
+    font-family: Montserrat, sans-serif;
+}
+
+
+.btn-trailer:hover {
+background-color: #b20710; /* Escurece um pouco */
+transform: scale(1.05);
+}
+/* Botão Secundário: Sinopse */
+.btn-sinopse {
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente */
+color: #ffffff;
+border: 2px solid rgba(255, 255, 255, 0.6); /* Borda branca grossa */
+padding: 10px 24px;
+border-radius: 5px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+width: 300px;
+height: 50px;
+}
+.btn-sinopse:hover {
+background-color: rgba(255, 255, 255, 0.2);
+border-color: #ffffff; /* Borda acende pra branco total */
+transform: scale(1.05);
+}
+/* 12. Preparando o container pai para segurar o pôster */
+.slide {
+width: 100%;
+height: 100%;
+position: relative;
+/* Ativamos o flex para ajudar a centralizar o pôster na área restante */
+display: flex;
+justify-content: center; /* Centraliza horizontalmente o wrapper do pôster */
+align-items: center; /* Centraliza verticalmente */
+}
+/* 13. O Wrapper do Pôster (Posicionamento e Camada) */
+.slide-poster-wrapper {
+position: relative;
+z-index: 3; /* Fica acima do fundo borrado (z-index 1) */
+height: 70%; /* Define a altura do cartaz em relação ao banner (importante!) */
+display: flex;
+justify-content: center;
+align-items: center;
+/* Margem automática ajuda o flex a empurrar o elemento para a direita dos textos fixos 
+*/
+margin: auto;
+}
+/* 14. A Imagem do Pôster (Efeitos Visuais) */
+.slide-poster-img {
+height: 100%; /* Ocupa 100% da altura do wrapper (que é 85% do banner) */
+width: auto; /* Mantém a proporção da imagem sem distorcer */
+/* EFEITOS DE DESIGN "PREMIUM" */
+border-radius: 8px; /* Cantos suavemente arredondados */
+object-fit: contain; /* Garante que a imagem não seja cortada */
+/* A MÁGICA DA FLUTUAÇÃO: Sombra pesada e bem escura */
+box-shadow: 0 15px 35px rgba(0, 0, 0, 1);
+width: 300px;
+height: 500px;
+transition: all 0.3s ease;
+transform: translateX(110px);   /* Move para direita */
+padding-top: 0;
+padding-bottom: 0;
+
+}
+.slide-poster-img:active {
+    transform: translate(110px, 0) scale(0.95);
+    /* Dá um leve "afundamento" ao clicar */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+   /* Sombra mais suave para o efeito de clique */
+    transform: translateX(110px);
+}
+.slide-poster-img:hover {
+    box-shadow: 0 15px 50px rgba(4, 122, 32, 0.582);
+    transform: scale(1.08);
+    cursor: pointer;
+      transform: translateY(-19px);
+      transform: translateX(100px);
+
+}
+.coming-soon-section {
+width: 100%;
+min-height: 500px;
+padding: 60px 0;
+position: relative;
+display: flex;
+align-items: center;
+overflow: hidden;
+/* A MÁGICA DO PARALLAX */
+background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+url('../imagens/carrossel/prada2-bg.jpg'); 
+background-size: cover;
+background-position: center;
+background-attachment: fixed; /* Trava a imagem no fundo */
+}
+.coming-soon-container {
+display: flex;
+max-width: 1200px;
+margin: auto;
+align-items: center;
+gap: 50px;
+z-index: 2;
+} 
+/* Estilo do Pôster dessa seção */
+.coming-soon-poster-img {
+ width: 350px;
+border-radius: 12px;
+transition: all 0.3s ease;
+transform: translateY(-40px); 
+
+}
+.coming-soon-poster-img:hover {
+    box-shadow: 0 15px 50px rgba(203, 11, 11, 0.9);
+    transform: scale(1.08);
+    cursor: pointer;
+    transform: translateY(-10px);
+}
+.coming-soon-poster-img3{
+transform: translateY(-100px);
+transform:translateX(-700px);
+}
+
+.coming-soon-poster-col {
+   transform: translateY(-50px);    
+}
+
+
+
+
+.coming-soon-section1 {
+width: 100%;
+min-height: 500px;
+padding: 60px 0;
+position: relative;
+display: flex;
+align-items: center;
+overflow: hidden;
+/* A MÁGICA DO PARALLAX */
+background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+url('../imagens/carrossel/filme4_a.jpg'); 
+background-size: cover;
+background-position: center;
+background-attachment: fixed; /* Trava a imagem no fundo */
+}
+.coming-soon-container1 {
+display: flex;
+max-width: 1200px;
+margin: auto;
+align-items: center;
+gap: 50px;
+
+z-index: 2;
+}
+/* Estilo do Pôster dessa seção */
+.coming-soon-poster-img1 {
+width: 350px;
+border-radius: 12px;
+transition: all 0.3s ease;
+
+}
+.coming-soon-poster-img1:hover {
+    box-shadow: 0 15px 50px rgba(171, 89, 3, 0.9);
+    transform: scale(1.20);
+    cursor: pointer;
+}
+.coming-soon-section1 {
+width: 100%;
+min-height: 500px;
+padding: 60px 0;
+position: relative;
+display: flex;
+align-items: center;
+overflow: hidden;
+/* A MÁGICA DO PARALLAX */
+background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+url('../imagens/carrossel/filme4_a.jpg'); 
+background-size: cover;
+background-position: center;
+background-attachment: fixed; /* Trava a imagem no fundo */
+transform: translateY(-100px);
+}
+
+.coming-soon-section2 {
+width: 100%;
+min-height: 500px;
+padding: 60px 0;
+position: relative;
+display: flex;
+align-items: center;
+overflow: hidden;
+/* A MÁGICA DO PARALLAX */
+transform: translateY(-98px);
+
+background-size: cover;
+background-position: center;
+background-attachment: fixed; /* Trava a imagem no fundo */
+}
+
+.coming-soon-poster-col2{
+width: 350px; 
+     transform: translateY( 10px);
+     transform: translateX(500px);
+     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+url('..imagens/carrossel/filme2_a.webp');
+}
+
+.movie-actions3{
+    width: 100%;
+    height: 14cm;
+    position: relative;
+     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)),
+    url('imagens/carrossel/filme2_a.webp');
+     margin-top: 10px;
+     transform: translateY(-600px);
+    
+}
+ 
+ .coming-soon-poster-img3 {
+width: 350px;
+border-radius: 12px;
+transition: all 0.3s ease;
+transform: translateX(50px);
+transition: all 0.3s ease;
+ }
+ .coming-soon-poster-img3:hover {
+    box-shadow: 0 15px 50px rgba(3, 187, 229, 0.9);
+  transform: scale(1.20);
+    cursor: pointer;
+}
+
+.coming-soon-section3 {
+ width: 100%;
+min-height: 500px;
+padding: 60px 0;
+position: relative;
+display: flex;
+align-items: center;
+overflow: hidden;
+/* A MÁGICA DO PARALLAX */
+background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+url('https://disneyplusbrasil.com.br/wp-content/uploads/2025/07/Cara-de-Um-Focinho-de-Outro.jpg'); 
+background-size: cover;
+background-position: center;
+background-attachment: fixed; /* Trava a imagem no fundo */
+transform: translateY(-100px);
+}
+.coming-soon-container3 {
+display: flex;
+max-width: 1200px;
+margin: auto;
+align-items: center;
+gap: 50px;
+
+z-index: 2;
+}
+.coming-soon-desc3 {
+font-size: 1.1rem;
+line-height: 1.6; /* Espaço entre as linhas pra facilitar a leitura */
+color: #e0e0e0; /* Um branco levemente acinzentado */
+margin-bottom: 30px;
+text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+.coming-soon-badge3 {
+background-color: #E50914; /* Vermelho Netflix pra chamar atenção */
+color: white;
+padding: 6px 18px;
+font-size: 0.9rem;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 2px; /* Espaça as letras pra ficar chic */
+border-radius: 4px;
+display: inline-block; /* Importante para o padding funcionar direito */
+margin-bottom: 20px;
+box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4); /* Sombrinha vermelha */
+}
+.legal-section {
+display: flex;
+justify-content: space-between; /* Coloca o copyright à esquerda e os links à direita */
+align-items: center;
+font-size: 0.9rem;
+color: #aaaaaa; /* Texto um pouco mais claro para não chamar tanta atenção */    
+}
+.legal-links {
+display: flex;
+gap: 30px;
+
+}
+.legal-links a {
+text-decoration: none;
+color: #aaaaaa;
+transition: color 0.3s ease;
+ transform: scale(0.9);
+}
+.copyright {
+transform: scale(0.9);  
+}
+.legal-links a:hover {
+color: #ffffff; /* Fica branco ao passar o cursor */
+}
+
+.social-section {
+text-align: center; /* Centraliza o "SIGA-NOS" e os botões */
+margin-bottom: 30px;
+}
+.social-section h3 {
+font-size: 1.2rem;
+color: #E50914; /* O mesmo vermelho do cabeçalho para criar identidade visual */
+margin-bottom: 15px;
+letter-spacing: 2px;
+}
+.social-buttons {
+display: flex;
+justify-content: center;
+gap: 15px; /* Espaço entre os botões sociais */
+transform: scale(0.8);
+transform: translateY(-50px);
+.btn-social {
+text-decoration: none;
+color: #ffffff;
+background-color: #333333;
+width: 45px; /* Largura fixa */
+height: 45px; /* Altura fixa */
+display: flex; /* Flexbox para centralizar o ícone no meio do botão */
+justify-content: center;
+align-items: center;
+border-radius: 50%; /* Transforma o botão num círculo perfeito */
+font-size: 1.3rem; /* Aumenta um pouco o tamanho do ícone */
+transition: all 0.3s ease;
+}
+.btn-social:hover {
+background-color: #c4c376ef; /* Fica vermelho */
+transform: translateY(-5px); /* Dá um pequeno "salto" para cima */
+box-shadow: 0 3px 14px rgb(255, 255, 255); /* Sombra vermelha */
+}
+.footer-line {
+border: none;
+height: 1px;
+background-color: #444444; /* Uma linha cinza discreta */
+margin: 0 0 20px 0;
+}
+}

@@ -1,0 +1,15 @@
+<!-- Arquivo: includes/header.html -->
+<header class="cinema-header">
+<div class="logo-container">
+<img src="imagens/logo1.png" alt="Logo Alfa Cinemas"
+class="logo">
+</div>
+<nav class="main-menu">
+<ul>
+<li><a href="#">Programação</a></li>
+<li><a href="#">Filmes</a></li>
+<li><a href="#">Preços</a></li>
+<li><a href="#">Promoções</a></li>
+</ul>
+</nav>
+</header>
